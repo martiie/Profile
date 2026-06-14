@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Phithak Wangto — AI Engineer & Computer Vision Specialist</title>
-  <meta name="description" content="Portfolio of Phithak Wangto — AI Engineer, Computer Vision Specialist, and Full Stack Developer. Building intelligent systems for industrial automation and document processing.">
+  <title>MARTIIEZ — Machine-Vision & Industrial-AI Solutions</title>
+  <meta name="description" content="MARTIIEZ is a machine-vision & industrial-AI studio by Phithak Wangto — a node-based vision-pipeline platform plus end-to-end defect detection, OCR/label verify, dimension, anomaly and SPC monitoring for manufacturing QC.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -316,6 +316,37 @@
     .foot-ls { display: flex; gap: 20px; }
     .foot-a  { font-size: 13px; color: var(--tx3); transition: color .2s; }
     .foot-a:hover { color: var(--tx); }
+
+    /* ── TRUST STRIP ── */
+    .trust { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 56px; }
+    @media (max-width: 680px) { .trust { grid-template-columns: 1fr 1fr; } }
+    .trust-c { background: var(--s1); border: 1px solid var(--bd); border-radius: var(--rl);
+               padding: 22px 18px; text-align: center; }
+    .trust-v { font-size: 30px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+    .trust-l { font-family: var(--mono); font-size: 10.5px; color: var(--tx2); letter-spacing: .04em; }
+
+    /* ── PLATFORM ── */
+    .pf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 720px) { .pf-grid { grid-template-columns: 1fr; } }
+    .pf-card { display: flex; gap: 16px; background: var(--s1); border: 1px solid var(--bd);
+               border-radius: var(--rl); padding: 22px; transition: var(--ease); }
+    .pf-card:hover { border-color: var(--bd-h); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,.38); }
+    .pf-ico { flex-shrink: 0; width: 44px; height: 44px; border-radius: 11px; background: var(--s2);
+              display: flex; align-items: center; justify-content: center; font-size: 21px; }
+    .pf-title { font-size: 15.5px; font-weight: 700; margin-bottom: 5px; }
+    .pf-desc { font-size: 13px; color: var(--tx2); line-height: 1.62; }
+
+    /* ── PROCESS ── */
+    .proc-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+    @media (max-width: 900px) { .proc-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .proc-grid { grid-template-columns: 1fr; } }
+    .proc-card { background: var(--s1); border: 1px solid var(--bd); border-radius: var(--rl);
+                 padding: 22px 18px; transition: var(--ease); position: relative; }
+    .proc-card:hover { border-color: var(--bd-h); transform: translateY(-3px); }
+    .proc-n { font-family: var(--mono); font-size: 13px; font-weight: 700; margin-bottom: 14px;
+              background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .proc-title { font-size: 15px; font-weight: 700; margin-bottom: 7px; }
+    .proc-desc { font-size: 12.5px; color: var(--tx2); line-height: 1.6; }
 
     /* ── REVEAL ── */
     /* Initial hidden state before React mounts */

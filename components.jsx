@@ -137,12 +137,12 @@ function Nav({ theme, setTheme }) {
   const on  = useScrolled();
   const [mob, setMob] = useState(false);
   const links = [
-    { h: '#about',      l: 'About'      },
-    { h: '#skills',     l: 'Skills'     },
-    { h: '#projects',   l: 'Projects'   },
-    { h: '#experience', l: 'Experience' },
-    { h: '#services',   l: 'Services'   },
-    { h: '#contact',    l: 'Contact'    },
+    { h: '#platform',  l: 'Platform'  },
+    { h: '#solutions', l: 'Solutions' },
+    { h: '#work',      l: 'Work'      },
+    { h: '#process',   l: 'Process'   },
+    { h: '#stack',     l: 'Tech'      },
+    { h: '#contact',   l: 'Contact'   },
   ];
   useEffect(() => {
     document.body.style.overflow = mob ? 'hidden' : '';
@@ -153,8 +153,8 @@ function Nav({ theme, setTheme }) {
     <>
       <nav className={'nav' + (on ? ' on' : '')}>
         <a href="#" className="nav-logo">
-          <span className="gt" style={{ fontWeight: 700 }}>PW</span>
-          <span style={{ color: 'var(--tx3)', fontSize: 13 }}>· phithak.dev</span>
+          <span className="gt" style={{ fontWeight: 800, letterSpacing: '.02em' }}>MARTIIEZ</span>
+          <span style={{ color: 'var(--tx3)', fontSize: 12 }}>· vision AI</span>
         </a>
 
         <ul className="nav-links">
@@ -171,7 +171,7 @@ function Nav({ theme, setTheme }) {
           >
             {theme === 'dark' ? '☀' : '☾'}
           </button>
-          <a href="#contact" className="btn bp" style={{ padding: '9px 18px', fontSize: 13 }}>Hire Me</a>
+          <a href="#contact" className="btn bp" style={{ padding: '9px 18px', fontSize: 13 }}>Book a call</a>
           <button className="ico mob-btn" onClick={() => setMob(true)} aria-label="Open menu">☰</button>
         </div>
       </nav>
@@ -185,7 +185,7 @@ function Nav({ theme, setTheme }) {
             );
           })}
           <a href="#contact" className="btn bp" style={{ marginTop: 16 }} onClick={() => setMob(false)}>
-            Hire Me
+            Book a call
           </a>
         </div>
       )}

@@ -2,7 +2,38 @@ const { useState, useEffect } = React;
 
 /* ══════════════════ DATA ══════════════════ */
 
-const ROLES = ['AI Engineer', 'Computer Vision Specialist', 'Full Stack Developer', 'Industrial AI Builder'];
+const SOLUTION_WORDS = ['Defect Detection', 'OCR & Label Verify', 'Dimension & Measurement', 'Surface & Anomaly AI', 'SPC Monitoring'];
+
+const STATS = [
+  { v: '~35',  l: 'Vision Node Types' },
+  { v: '10',   l: 'Node Categories' },
+  { v: '8',    l: 'Demo Recipes' },
+  { v: '100%', l: 'In-Browser Engine' },
+];
+
+const PLATFORM = [
+  { icon: '🧩', title: 'Node-based recipe editor', desc: 'Compose an inspection as a graph of nodes + wires on a canvas — no code. ~35 node types across 10 categories.' },
+  { icon: '⚡', title: 'In-browser vision engine',  desc: 'Pixel ops run client-side in a Web Worker with on-device ONNX inference — zero server round-trip per image.' },
+  { icon: '✅', title: 'PASS / FAIL verdicts',      desc: 'Every run returns a verdict plus per-node image and measurement outputs you can inspect step by step.' },
+  { icon: '🚀', title: 'Deploy & monitor',          desc: 'A .NET API persists recipes, runs them headless, and routes results — with SPC trend monitoring over batches.' },
+];
+
+const SOLUTIONS = [
+  { icon: '🔍', title: 'Defect Detection',         desc: 'Real-time surface and component defect detection for fast-moving manufacturing QC lines.' },
+  { icon: '📄', title: 'OCR & Label Verify',       desc: 'Thai/English OCR and 1D/2D barcode decoding to verify printed labels against the expected value.' },
+  { icon: '📐', title: 'Dimension & Measurement',  desc: 'Caliper, distance, and geometry nodes for precise dimensional inspection and tolerance checks.' },
+  { icon: '🧠', title: 'Surface & Anomaly AI',     desc: 'Golden-mask comparison and MobileSAM segmentation for defects that fixed rules can’t enumerate.' },
+  { icon: '📈', title: 'SPC & Monitoring',         desc: 'Turn per-part verdicts into batch defect-rate trends with control-chart style monitoring.' },
+  { icon: '🛠', title: 'Custom Vision Apps',       desc: 'End-to-end design and delivery of bespoke inspection systems — from data collection to deployment.' },
+];
+
+const PROCESS = [
+  { n: '01', title: 'Discover',  desc: 'Understand the part, the defects that matter, and the constraints of the line.' },
+  { n: '02', title: 'Prototype', desc: 'Build a recipe in the MARTIIEZ editor and validate it on real sample images.' },
+  { n: '03', title: 'Validate',  desc: 'Tune thresholds, measure accuracy, and confirm PASS/FAIL against ground truth.' },
+  { n: '04', title: 'Deploy',    desc: 'Ship the recipe to run on the line — in-browser or through the headless API.' },
+  { n: '05', title: 'Monitor',   desc: 'Track defect-rate trends with SPC and iterate as the process drifts over time.' },
+];
 
 const SKILLS = [
   { cat: 'AI & Machine Learning',  col: 'var(--blue)',   items: ['Python','PyTorch','ONNX Runtime','MobileSAM','Scikit-learn','Pandas','NumPy','Time Series / SPC'] },
@@ -77,7 +108,7 @@ const PROJECTS = [
     id: 7, cat: 'NLP & LLM',
     title: 'HIV Risk-Guidance Chatbot (RAG)',
     desc:  'A GPT-powered chatbot using Retrieval-Augmented Generation to give personalized HIV risk assessments grounded in trusted medical sources. Built at Beyond Coding.',
-    prob:  'General LLMs hallucinate on sensitive medical questions and can\'t cite trusted sources — unsafe for real health guidance.',
+    prob:  'General LLMs hallucinate on sensitive medical questions and can’t cite trusted sources — unsafe for real health guidance.',
     sol:   'Built an ETL pipeline that cleans and embeds vetted medical content into a vector knowledge base, then retrieves relevant context at query time for accurate, context-aware answers.',
     tech:  ['GPT','RAG','Vector DB','ETL','Python','FastAPI'],
     res:   ['Retrieval-grounded medical answers','ETL into a vector knowledge base','Personalized risk assessment'],
@@ -105,12 +136,19 @@ const PROJECTS = [
   },
 ];
 
+const VIDEOS = [
+  { title: 'MARTIIEZ Editor Walkthrough', desc: 'Building an inspection recipe from nodes + wires',  dur: '3:20', bg: 'linear-gradient(135deg,#0c1e3c,#091528)' },
+  { title: 'Bottle-Cap Inspection Run',   desc: 'Recipe execution → PASS/FAIL verdict live',        dur: '1:48', bg: 'linear-gradient(135deg,#160e38,#0e0a28)' },
+  { title: 'OCR & Barcode Verify Nodes',  desc: 'Thai/English OCR + QR decode in the browser',      dur: '2:36', bg: 'linear-gradient(135deg,#0b2828,#071818)' },
+  { title: 'SPC Time-Series Monitor',     desc: 'Tracking batch defect-rate trends over runs',      dur: '2:54', bg: 'linear-gradient(135deg,#280f30,#18091e)' },
+];
+
 const TIMELINE = [
   {
     date: '2025 — Present',
-    role: 'AI / Vision Engineer',
+    role: 'AI / Vision Engineer · Founder of MARTIIEZ',
     org:  'Semiconductor Defect Detection',
-    desc: 'Building computer-vision defect-detection systems for semiconductor inspection — from data pipelines to deployed models. Developing MARTIIEZ, a low-code node-based visual editor for machine-vision QC pipelines.',
+    desc: 'Building computer-vision defect-detection systems for semiconductor inspection — from data pipelines to deployed models — and developing MARTIIEZ, a low-code node-based platform for machine-vision QC.',
   },
   {
     date: '2024 — 2025',
@@ -122,30 +160,14 @@ const TIMELINE = [
     date: '2021 — 2025',
     role: 'B.Sc. Data Science',
     org:  'Chiang Mai University · GPA 3.53',
-    desc: 'Bachelor\'s degree in Data Science — machine learning, computer vision, time-series forecasting, NLP, and data engineering (ETL/ELT), with hands-on model deployment.',
+    desc: 'Bachelor’s degree in Data Science — machine learning, computer vision, time-series forecasting, NLP, and data engineering (ETL/ELT), with hands-on model deployment.',
   },
-];
-
-const SERVICES = [
-  { icon: '🧠', title: 'AI Development',           desc: 'Custom machine learning models and end-to-end AI pipelines tailored to your production environment and data.' },
-  { icon: '👁',  title: 'Computer Vision',          desc: 'Real-time object detection, visual defect inspection, and camera-based automation for manufacturing.' },
-  { icon: '📄', title: 'OCR & Document AI',         desc: 'Thai and English OCR pipelines with structured extraction, LLM validation, and ERP-ready output.' },
-  { icon: '⚙️', title: 'Industrial Automation',     desc: 'AI-powered quality control and inspection systems for factories, integrated with existing line hardware.' },
-  { icon: '🌐', title: 'Web Application Dev',       desc: 'Full-stack web apps built with React, TypeScript, and scalable backend APIs — from MVP to production.' },
-  { icon: '🛠',  title: 'Custom Software Solutions', desc: 'End-to-end design and delivery for data annotation, AI ops, and internal tooling platforms.' },
-];
-
-const VIDEOS = [
-  { title: 'MARTIIEZ Editor Walkthrough',   desc: 'Building an inspection recipe from nodes + wires',   dur: '3:20', bg: 'linear-gradient(135deg,#0c1e3c,#091528)' },
-  { title: 'Bottle-Cap Inspection Run',     desc: 'Recipe execution → PASS/FAIL verdict live',         dur: '1:48', bg: 'linear-gradient(135deg,#160e38,#0e0a28)' },
-  { title: 'OCR & Barcode Verify Nodes',    desc: 'Thai/English OCR + QR decode in the browser',       dur: '2:36', bg: 'linear-gradient(135deg,#0b2828,#071818)' },
-  { title: 'SPC Time-Series Monitor',       desc: 'Tracking batch defect-rate trends over runs',       dur: '2:54', bg: 'linear-gradient(135deg,#280f30,#18091e)' },
 ];
 
 /* ══════════════════ SECTIONS ══════════════════ */
 
 function Hero() {
-  const role = window.useTypewriter(ROLES, 80);
+  const solution = window.useTypewriter(SOLUTION_WORDS, 80);
   return (
     <section className="hero" id="hero" data-screen-label="Hero">
       <div className="hero-in">
@@ -153,50 +175,43 @@ function Hero() {
         <window.Reveal delay={0}>
           <div className="hero-pill">
             <span className="pdot"></span>
-            Available for new projects
+            Machine-vision &amp; industrial-AI studio
           </div>
         </window.Reveal>
 
-        <window.Reveal delay={80}>
-          <div className="photo-ring">
-            <div className="photo-in">
-              <image-slot
-                id="profile-photo"
-                shape="circle"
-                placeholder="Drop photo"
-                style={{ width: '106px', height: '106px', display: 'block' }}
-              ></image-slot>
-            </div>
-          </div>
-        </window.Reveal>
-
-        <window.Reveal delay={150}>
-          <h1 className="hero-name gt">Phithak Wangto</h1>
+        <window.Reveal delay={120}>
+          <h1 className="hero-name gt">MARTIIEZ</h1>
         </window.Reveal>
 
         <window.Reveal delay={200}>
-          <p className="hero-role">{role}<span className="cursor"></span></p>
+          <p className="hero-role">{solution}<span className="cursor"></span></p>
         </window.Reveal>
 
         <window.Reveal delay={260}>
           <p className="hero-bio">
-            Building intelligent systems that <strong style={{ color: 'var(--tx)' }}>see, learn, and automate</strong> —
-            from computer vision pipelines for factories to full-stack AI platforms for teams.
+            I build machine-vision inspection systems that <strong style={{ color: 'var(--tx)' }}>see, decide, and deploy</strong> —
+            a node-based pipeline platform plus end-to-end defect detection for the factory line.
           </p>
         </window.Reveal>
 
         <window.Reveal delay={320}>
           <div className="hero-ctas">
-            <a href="#projects" className="btn bp">View Projects</a>
-            <a href="#" className="btn bo" download>Download Resume</a>
-            <a href="#contact" className="btn bg">Get In Touch</a>
+            <a href="#platform" className="btn bp">Explore the Platform</a>
+            <a href="#work" className="btn bo">View Our Work</a>
+            <a href="#contact" className="btn bg">Get in Touch</a>
           </div>
         </window.Reveal>
 
-        <window.Reveal delay={430}>
-          <div className="scroll-hint">
-            <span>scroll to explore</span>
-            <div className="scroll-line"></div>
+        <window.Reveal delay={400}>
+          <div className="trust">
+            {STATS.map(function(s, i) {
+              return (
+                <div key={i} className="trust-c">
+                  <div className="trust-v gt">{s.v}</div>
+                  <div className="trust-l">{s.l}</div>
+                </div>
+              );
+            })}
           </div>
         </window.Reveal>
 
@@ -206,44 +221,41 @@ function Hero() {
 }
 
 function About() {
-  const stats = [
-    { v: '~35', l: 'Vision Node Types',   g: true  },
-    { v: '10',  l: 'Node Categories',     g: false },
-    { v: '8',   l: 'Demo Recipes Shipped', g: false },
-    { v: '100%', l: 'In-Browser Engine',  g: false },
-  ];
   return (
     <section id="about" className="alt" data-screen-label="About">
       <div className="wrap">
         <div className="ab-grid">
           <window.Reveal>
-            <div className="eye"><span className="eyeline"></span>About Me</div>
-            <h2 className="stitle">From raw pixels to<br /><span className="gt">intelligent decisions</span></h2>
+            <div className="eye"><span className="eyeline"></span>About MARTIIEZ</div>
+            <h2 className="stitle">Machine vision,<br /><span className="gt">made composable</span></h2>
             <p style={{ color: 'var(--tx2)', lineHeight: 1.82, marginBottom: 14, fontSize: 15 }}>
-              I'm an AI Engineer based in Thailand, focused on <strong style={{ color: 'var(--tx)' }}>computer vision
-              and industrial automation</strong>. My work spans real-time defect detection, OCR pipelines for document
-              processing, and the full-stack platforms that make AI usable for teams at scale.
+              MARTIIEZ is my studio for <strong style={{ color: 'var(--tx)' }}>machine vision and industrial AI</strong>.
+              At its core is a low-code, node-based editor where an inspection is built as a graph of nodes and wires —
+              then run to produce a clear PASS/FAIL verdict with per-node evidence.
             </p>
             <p style={{ color: 'var(--tx2)', lineHeight: 1.82, marginBottom: 22, fontSize: 15 }}>
-              I care deeply about the gap between AI research and production reality — building systems that
-              work reliably under the messiness of real-world data and operating environments.
+              I care about the gap between AI research and production reality — building systems that stay reliable under
+              the messiness of real-world data, lighting, and operating environments on the factory floor.
             </p>
             <div className="chips">
               <span className="bdg bb">Computer Vision</span>
-              <span className="bdg bp2">Deep Learning</span>
-              <span className="bdg bb">OCR & Document AI</span>
-              <span className="bdg bp2">Full Stack</span>
+              <span className="bdg bp2">Defect Detection</span>
+              <span className="bdg bb">OCR &amp; Verify</span>
+              <span className="bdg bp2">SPC Monitoring</span>
               <span className="bdg bb">Industrial AI</span>
             </div>
           </window.Reveal>
 
           <window.Reveal delay={160}>
-            <div className="stats">
-              {stats.map(function(s, i) {
+            <div className="pf-grid" style={{ gridTemplateColumns: '1fr' }}>
+              {PLATFORM.slice(0, 3).map(function(p, i) {
                 return (
-                  <div key={i} className="stat">
-                    <div className="stat-v">{s.g ? <span className="gt">{s.v}</span> : s.v}</div>
-                    <div className="stat-l">{s.l}</div>
+                  <div key={i} className="pf-card">
+                    <div className="pf-ico">{p.icon}</div>
+                    <div>
+                      <div className="pf-title">{p.title}</div>
+                      <div className="pf-desc">{p.desc}</div>
+                    </div>
                   </div>
                 );
               })}
@@ -255,37 +267,67 @@ function About() {
   );
 }
 
-function Skills() {
+function Platform() {
   return (
-    <section id="skills" data-screen-label="Skills">
+    <section id="platform" data-screen-label="Platform">
       <div className="wrap">
         <window.Reveal>
           <div className="sh">
-            <div className="eye"><span className="eyeline"></span>Skills & Stack</div>
-            <h2 className="stitle">Technologies I<br /><span className="gt">build with</span></h2>
-            <p className="ssub">Across the full AI development lifecycle — from research to production deployment.</p>
+            <div className="eye"><span className="eyeline"></span>The Platform</div>
+            <h2 className="stitle">One editor,<br /><span className="gt">every inspection</span></h2>
+            <p className="ssub">A node-based vision pipeline that runs in the browser and deploys to the line.</p>
           </div>
         </window.Reveal>
-
-        {SKILLS.map(function(g, gi) {
-          return (
-            <window.Reveal key={gi} delay={gi * 70} className="sk-g">
-              <div className="sk-cat" style={{ color: g.col }}>
-                {g.cat}
-                <span className="sk-ln"></span>
-              </div>
-              <div className="sk-chips">
-                {g.items.map(function(s) { return <span key={s} className="sk-c">{s}</span>; })}
-              </div>
-            </window.Reveal>
-          );
-        })}
+        <div className="pf-grid">
+          {PLATFORM.map(function(p, i) {
+            return (
+              <window.Reveal key={i} delay={i * 70}>
+                <div className="pf-card">
+                  <div className="pf-ico">{p.icon}</div>
+                  <div>
+                    <div className="pf-title">{p.title}</div>
+                    <div className="pf-desc">{p.desc}</div>
+                  </div>
+                </div>
+              </window.Reveal>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
 }
 
-function Projects() {
+function Solutions() {
+  return (
+    <section id="solutions" className="alt" data-screen-label="Solutions">
+      <div className="wrap" style={{ textAlign: 'center' }}>
+        <window.Reveal>
+          <div className="sh">
+            <div className="eye c"><span className="eyeline"></span>Solutions</div>
+            <h2 className="stitle">What MARTIIEZ<br /><span className="gt">inspects</span></h2>
+            <p className="ssub c">Production-grade vision QC across the most common inspection problems.</p>
+          </div>
+        </window.Reveal>
+        <div className="sv-grid" style={{ textAlign: 'left' }}>
+          {SOLUTIONS.map(function(s, i) {
+            return (
+              <window.Reveal key={i} delay={i * 65}>
+                <div className="sv-card">
+                  <div className="sv-ico">{s.icon}</div>
+                  <div className="sv-title">{s.title}</div>
+                  <div className="sv-desc">{s.desc}</div>
+                </div>
+              </window.Reveal>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Work() {
   const [filter, setFilter] = useState('All');
   const [modal,  setModal]  = useState(null);
   const cats   = ['All'].concat([...new Set(PROJECTS.map(function(p) { return p.cat; }))]);
@@ -303,13 +345,13 @@ function Projects() {
   }, []);
 
   return (
-    <section id="projects" className="alt" data-screen-label="Projects">
+    <section id="work" data-screen-label="Work">
       <div className="wrap">
         <window.Reveal>
           <div className="sh">
-            <div className="eye"><span className="eyeline"></span>Featured Projects</div>
-            <h2 className="stitle">Work that speaks<br /><span className="gt">for itself</span></h2>
-            <p className="ssub">Production AI systems solving real industrial and enterprise challenges.</p>
+            <div className="eye"><span className="eyeline"></span>Work &amp; Case Studies</div>
+            <h2 className="stitle">Systems shipped<br /><span className="gt">end to end</span></h2>
+            <p className="ssub">From the MARTIIEZ platform itself to the inspection and data systems built around it.</p>
           </div>
 
           <div className="ftabs">
@@ -412,13 +454,13 @@ function Projects() {
 
 function VideoShowcase() {
   return (
-    <section id="videos" data-screen-label="Video Showcase">
+    <section id="videos" className="alt" data-screen-label="In Action">
       <div className="wrap">
         <window.Reveal>
           <div className="sh">
-            <div className="eye"><span className="eyeline"></span>Video Showcase</div>
-            <h2 className="stitle">See the systems<br /><span className="gt">in action</span></h2>
-            <p className="ssub">Demo recordings and feature walkthroughs of deployed projects.</p>
+            <div className="eye"><span className="eyeline"></span>In Action</div>
+            <h2 className="stitle">See the platform<br /><span className="gt">at work</span></h2>
+            <p className="ssub">Demo recordings and feature walkthroughs of MARTIIEZ recipes.</p>
           </div>
         </window.Reveal>
         <div className="v-grid">
@@ -444,16 +486,75 @@ function VideoShowcase() {
   );
 }
 
-function Experience() {
+function Process() {
   return (
-    <section id="experience" className="alt" data-screen-label="Experience">
+    <section id="process" data-screen-label="Process">
+      <div className="wrap">
+        <window.Reveal>
+          <div className="sh">
+            <div className="eye"><span className="eyeline"></span>How I Work</div>
+            <h2 className="stitle">From sample image<br /><span className="gt">to the line</span></h2>
+            <p className="ssub">A repeatable path from problem to a monitored production inspection.</p>
+          </div>
+        </window.Reveal>
+        <div className="proc-grid">
+          {PROCESS.map(function(p, i) {
+            return (
+              <window.Reveal key={i} delay={i * 70}>
+                <div className="proc-card">
+                  <div className="proc-n">{p.n}</div>
+                  <div className="proc-title">{p.title}</div>
+                  <div className="proc-desc">{p.desc}</div>
+                </div>
+              </window.Reveal>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Stack() {
+  return (
+    <section id="stack" className="alt" data-screen-label="Tech Stack">
+      <div className="wrap">
+        <window.Reveal>
+          <div className="sh">
+            <div className="eye"><span className="eyeline"></span>Tech Stack</div>
+            <h2 className="stitle">Built with the<br /><span className="gt">right tools</span></h2>
+            <p className="ssub">Across the full vision-AI lifecycle — from research to production deployment.</p>
+          </div>
+        </window.Reveal>
+
+        {SKILLS.map(function(g, gi) {
+          return (
+            <window.Reveal key={gi} delay={gi * 70} className="sk-g">
+              <div className="sk-cat" style={{ color: g.col }}>
+                {g.cat}
+                <span className="sk-ln"></span>
+              </div>
+              <div className="sk-chips">
+                {g.items.map(function(s) { return <span key={s} className="sk-c">{s}</span>; })}
+              </div>
+            </window.Reveal>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function Founder() {
+  return (
+    <section id="founder" data-screen-label="Founder">
       <div className="wrap">
         <div className="tl-wrap">
           <window.Reveal className="tl-sticky">
-            <div className="eye"><span className="eyeline"></span>Experience</div>
-            <h2 className="stitle">Career<br /><span className="gt">timeline</span></h2>
+            <div className="eye"><span className="eyeline"></span>Founder &amp; Background</div>
+            <h2 className="stitle">Behind<br /><span className="gt">MARTIIEZ</span></h2>
             <p className="ssub" style={{ marginTop: 0 }}>
-              Building production AI systems and full-stack software from day one.
+              MARTIIEZ is built by Phithak Wangto — AI / Vision Engineer and Data Science graduate.
             </p>
             <div style={{ marginTop: 28 }}>
               <a href="https://www.linkedin.com/in/phithak-wangto/" target="_blank" rel="noreferrer"
@@ -482,35 +583,6 @@ function Experience() {
   );
 }
 
-function Services() {
-  return (
-    <section id="services" data-screen-label="Services">
-      <div className="wrap" style={{ textAlign: 'center' }}>
-        <window.Reveal>
-          <div className="sh">
-            <div className="eye c"><span className="eyeline"></span>Services</div>
-            <h2 className="stitle">What I can build<br /><span className="gt">for you</span></h2>
-            <p className="ssub c">End-to-end AI engineering and software development — available for new projects.</p>
-          </div>
-        </window.Reveal>
-        <div className="sv-grid" style={{ textAlign: 'left' }}>
-          {SERVICES.map(function(s, i) {
-            return (
-              <window.Reveal key={i} delay={i * 65}>
-                <div className="sv-card">
-                  <div className="sv-ico">{s.icon}</div>
-                  <div className="sv-title">{s.title}</div>
-                  <div className="sv-desc">{s.desc}</div>
-                </div>
-              </window.Reveal>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Contact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', msg: '' });
   const [sent, setSent]   = useState(false);
@@ -526,14 +598,14 @@ function Contact() {
   ];
 
   return (
-    <section id="contact" data-screen-label="Contact">
+    <section id="contact" className="alt" data-screen-label="Contact">
       <div className="wrap">
         <div className="ct-grid">
           <window.Reveal>
-            <div className="eye"><span className="eyeline"></span>Get In Touch</div>
-            <h2 className="stitle">Let's build<br /><span className="gt">something great</span></h2>
+            <div className="eye"><span className="eyeline"></span>Get in Touch</div>
+            <h2 className="stitle">Let's build your<br /><span className="gt">inspection system</span></h2>
             <p style={{ color: 'var(--tx2)', lineHeight: 1.82, fontSize: 15 }}>
-              Open to AI engineering projects, computer vision consulting, and interesting collaborations.
+              Have a defect-detection, OCR, measurement, or monitoring problem on your line? Tell me about it —
               I typically reply within 24 hours.
             </p>
             <div className="ct-links">
@@ -574,11 +646,11 @@ function Contact() {
                   </div>
                   <div className="f-g">
                     <label className="f-lbl">Subject</label>
-                    <input className="f-in" placeholder="Project inquiry, consulting..." value={form.subject} onChange={set('subject')} />
+                    <input className="f-in" placeholder="Defect detection, OCR, measurement..." value={form.subject} onChange={set('subject')} />
                   </div>
                   <div className="f-g">
                     <label className="f-lbl">Message</label>
-                    <textarea className="f-in" rows={5} placeholder="Tell me about your project, timeline, and goals..." value={form.msg} onChange={set('msg')} required></textarea>
+                    <textarea className="f-in" rows={5} placeholder="Tell me about the part, the defects, and your line..." value={form.msg} onChange={set('msg')} required></textarea>
                   </div>
                   <button type="submit" className="btn bp" style={{ alignSelf: 'flex-end', padding: '12px 26px' }}>
                     Send Message →
@@ -598,8 +670,8 @@ function Footer() {
     <footer>
       <div className="foot">
         <div className="foot-c">
-          © 2026 <span className="gt" style={{ fontFamily: 'var(--mono)' }}>Phithak Wangto</span>
-          {' '}— AI / Vision Engineer
+          © 2026 <span className="gt" style={{ fontFamily: 'var(--mono)' }}>MARTIIEZ</span>
+          {' '}— Machine-Vision &amp; Industrial-AI · by Phithak Wangto
         </div>
         <div className="foot-ls">
           <a href="https://www.linkedin.com/in/phithak-wangto/" className="foot-a" target="_blank" rel="noreferrer">LinkedIn</a>
@@ -630,11 +702,13 @@ function App() {
       <main>
         <Hero />
         <About />
-        <Skills />
-        <Projects />
+        <Platform />
+        <Solutions />
+        <Work />
         <VideoShowcase />
-        <Experience />
-        <Services />
+        <Process />
+        <Stack />
+        <Founder />
         <Contact />
       </main>
       <Footer />
