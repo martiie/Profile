@@ -198,6 +198,7 @@ function Hero() {
           <div className="hero-ctas">
             <a href="#platform" className="btn bp">Explore the Platform</a>
             <a href="#work" className="btn bo">View Our Work</a>
+            <a href="Resume_Phithak_Wangto.pdf" className="btn bo" download="Phithak_Wangto_Resume.pdf">↓ Download Resume</a>
             <a href="#contact" className="btn bg">Get in Touch</a>
           </div>
         </window.Reveal>
